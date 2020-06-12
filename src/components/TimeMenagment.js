@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from './Button';
 import { useState } from 'react';
 
-const TimeMenagment = ({setWorkingTime, setBreakTime, workingTime, breakTime}) => {
+const TimeMenagment = (props) => {
+
+    const {setWorkingTime, setBreakTime, workingTime, breakTime, session, setSession} = props;
     
-    const [isActive, setIsActive] = useState(true)
+    const [isActive, setIsActive] = useState(false)
 
     const changeIsActive = () => {
         setIsActive(isActive => !isActive)
@@ -26,6 +28,32 @@ const TimeMenagment = ({setWorkingTime, setBreakTime, workingTime, breakTime}) =
         setBreakTime(breakTime => breakTime + 60)
     }
 
+    useEffect(() => {
+        let counter;
+        if(isActive){
+            if(session === "Work"){
+                counter = setInterval(()=>{
+                    setWorkingTime(workingTime => workingTime - 1)
+                    if(workingTime === 0){
+                        setSession("Break")
+                    }
+                }, 1000);
+            }else if(session === "Break"){
+               counter = setInterval(() => {
+                    setBreakTime(breakTime => breakTime - 1)
+                    if(breakTime === 0){
+                        setSession("Work")
+                    }
+                }, 1000)
+                
+            }
+        }
+        return function clenup () {
+            clearInterval(counter)
+        }
+    })
+
+    
     return (
         <div className="timeMenagment">
             <div>
@@ -52,7 +80,7 @@ const TimeMenagment = ({setWorkingTime, setBreakTime, workingTime, breakTime}) =
             </div>
             <div>
                 <Button
-                    name={isActive ? "Start":"Stop"}
+                    name={isActive ? "Stop":"Start"}
                     click={changeIsActive}
                 />
             </div>
