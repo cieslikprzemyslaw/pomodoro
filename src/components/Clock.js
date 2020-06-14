@@ -2,7 +2,7 @@ import React from 'react';
 
 const Clock = (props) => {
 
-    const { workingTime, breakTime, session, isWorkingTime, setTime } = props;
+    const {session, setTime } = props;
 
     return (
         <div className="Clock">

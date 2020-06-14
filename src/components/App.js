@@ -49,7 +49,6 @@ function App() {
         isActive={isActive}
         setIsActive={setIsActive}
       />
-
     </div>
   );
 }
