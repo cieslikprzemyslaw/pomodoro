@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Button from './Button';
 import { useState } from 'react';
+import '../css/Button.css';
 
 const TimeMenagment = (props) => {
 
@@ -19,13 +20,13 @@ const TimeMenagment = (props) => {
 
     const removeWorkingMinutes = () =>{
         setWorkingTime(workingTime => workingTime - 60)
-        setWork(work => work - 60)
+        setWork(_work => _work - 60)
         setSession("Work")
     }
 
     const addWorkingMinutes = () =>{
         setWorkingTime(workingTime => workingTime + 60)
-        setWork(work => work + 60)
+        setWork(_work => _work + 60)
         setSession("Work")
     }
 
@@ -72,34 +73,38 @@ const TimeMenagment = (props) => {
             clearInterval(counter)
         }
     })
-
     
     return (
         <div className="timeMenagment">
             <div>
                 <Button
+                className="button"
                     name="-"
                     click={isActive ? ()=>{}:removeWorkingMinutes}
                 />
-                <span>Work time</span>
+                <span className="title">Work time</span>
                 <Button
+                className="button"
                     name="+"
                     click={isActive ? ()=>{}:addWorkingMinutes}
                 />
             </div>
             <div>
                 <Button
+                className="button"
                     name="-"
                     click={isActive ? ()=>{}:removeBreakMinutes}
                 />
-                <span>break time</span>
+                <span className="title">break time</span>
                 <Button
+                className="button"
                     name="+"
                     click={isActive ? ()=>{}:addBreakMinutes}
                 />
             </div>
             <div>
                 <Button
+                className="start-button"
                     name={isActive ? "Stop":"Start"}
                     click={changeIsActive}
                 />
